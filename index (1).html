@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>سـوك | سوق الإلكترونيات العراقي</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- ===== NOTIFICATIONS ===== -->
+<div id="notif-container"></div>
+
+<!-- ===== MODALS ===== -->
+<div id="modal-overlay" class="modal-overlay hidden">
+  <div id="modal-box" class="modal-box">
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<!-- ===== NAV ===== -->
+<header id="main-header">
+  <nav class="navbar container">
+    <a href="#" class="logo" onclick="navigate('home')">
+      <span class="logo-sq">S</span><span class="logo-text">ouq</span>
+      <span class="logo-ar">سـوك</span>
+    </a>
+
+    <div class="nav-search" id="nav-search-wrap">
+      <i class="fa fa-search search-icon"></i>
+      <input type="text" id="search-input" placeholder="ابحث عن قطعة، جهاز، متجر..." />
+      <button onclick="doSearch()" class="btn-search">بحث</button>
+    </div>
+
+    <div class="nav-actions">
+      <button class="nav-icon-btn" id="cart-btn" onclick="navigate('cart')" title="السلة">
+        <i class="fa fa-shopping-cart"></i>
+        <span id="cart-badge" class="badge hidden">0</span>
+      </button>
+
+      <button class="nav-icon-btn" id="notif-btn" onclick="toggleNotifPanel()" title="الإشعارات">
+
+        <i class="fa fa-bell"></i>
+        <span id="notif-badge" class="badge hidden">0</span>
+      </button>
+      <div id="user-nav-area"></div>
+    </div>
+
+    <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu hidden" id="mobile-menu">
+    <a href="#" onclick="navigate('home');toggleMobileMenu()"><i class="fa fa-home"></i> الرئيسية</a>
+    <a href="#" onclick="navigate('used');toggleMobileMenu()"><i class="fa fa-recycle"></i> المستعمل</a>
+    <a href="#" onclick="navigate('stores');toggleMobileMenu()"><i class="fa fa-store"></i> المتاجر</a>
+
+    <a href="#" id="mob-dashboard-link" onclick="navigate('dashboard');toggleMobileMenu()" class="hidden"><i class="fa fa-tachometer-alt"></i> لوحة التحكم</a>
+
+    <a href="#" id="mob-cart-link" onclick="navigate('cart');toggleMobileMenu()"><i class="fa fa-cart-shopping"></i> السلة</a>
+    <a href="#" id="mob-logout-link" onclick="logoutUser();toggleMobileMenu()" class="hidden"><i class="fa fa-sign-out-alt"></i> تسجيل الخروج</a>
+    <a href="#" id="mob-login-link" onclick="navigate('login');toggleMobileMenu()"><i class="fa fa-sign-in-alt"></i> تسجيل الدخول</a>
+  </div>
+
+  <div class="categories-bar">
+    <div class="container categories-inner">
+      <a href="#" onclick="filterCategory('all')"><i class="fa fa-th"></i> الكل</a>
+      <a href="#" onclick="filterCategory('gpu')"><i class="fa fa-tv"></i> كروت الشاشة</a>
+      <a href="#" onclick="filterCategory('cpu')"><i class="fa fa-microchip"></i> المعالجات</a>
+      <a href="#" onclick="filterCategory('laptop')"><i class="fa fa-laptop"></i> اللابتوبات</a>
+      <a href="#" onclick="filterCategory('monitor')"><i class="fa fa-desktop"></i> الشاشات</a>
+      <a href="#" onclick="filterCategory('gaming')"><i class="fa fa-gamepad"></i> الألعاب</a>
+      <a href="#" onclick="filterCategory('accessories')"><i class="fa fa-keyboard"></i> إكسسوارات</a>
+      <a href="#" onclick="navigate('used')" class="used-link"><i class="fa fa-recycle"></i> مستعمل</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== NOTIF PANEL ===== -->
+<div id="notif-panel" class="notif-panel hidden">
+  <div class="notif-panel-header">
+    <span>الإشعارات</span>
+    <button onclick="clearNotifs()">مسح الكل</button>
+  </div>
+  <div id="notif-list"></div>
+</div>
+
+<!-- ===== PAGES ===== -->
+<main id="app-root"></main>
+
+<!-- ===== FOOTER ===== -->
+<footer id="main-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <span class="logo-sq">S</span><span class="logo-text">ouq</span>
+        <span class="logo-ar">سـوك</span>
+      </div>
+      <p>سوق الإلكترونيات العراقي – جديد ومستعمل بأسعار مناسبة وموثوقية عالية.</p>
+      <div class="social-links">
+  <a href="https://www.facebook.com/189.ct" target="_blank" rel="noopener"><i class="fab fa-facebook"></i></a>
+  <a href="https://www.instagram.com/0iw62" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+  <a href="https://t.me/zt9jl" target="_blank" rel="noopener"><i class="fab fa-telegram"></i></a>
+  <a href="https://wa.me/96407743563102" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+</div>
+
+    </div>
+    <div class="footer-col">
+      <h4>روابط سريعة</h4>
+      <a href="#" onclick="navigate('home')">الرئيسية</a>
+      <a href="#" onclick="navigate('used')">المستعمل</a>
+      <a href="#" onclick="navigate('stores')">المتاجر</a>
+      <a href="#" onclick="navigate('register')">إنشاء حساب</a>
+    </div>
+    <div class="footer-col">
+      <h4>الأقسام</h4>
+      <a href="#" onclick="filterCategory('gpu')">كروت الشاشة</a>
+      <a href="#" onclick="filterCategory('cpu')">المعالجات</a>
+      <a href="#" onclick="filterCategory('laptop')">اللابتوبات</a>
+      <a href="#" onclick="filterCategory('gaming')">أجهزة الألعاب</a>
+    </div>
+    <div class="footer-col">
+      <h4>الدعم</h4>
+      <a href="#" onclick="navigate('tickets')">تذاكر الدعم</a>
+      <a href="#" onclick="navigate('terms')">سياسة الاستخدام</a>
+      <a href="#" onclick="navigate('privacy')">الخصوصية</a>
+      <a href="#" onclick="navigate('contact')">اتصل بنا</a>
+
+    </div>
+  </div>
+  <div class="footer-bottom container">
+    <span>© 2025 سـوك – جميع الحقوق محفوظة</span>
+    <span>صُنع بـ <i class="fa fa-heart" style="color:#e84393"></i> في العراق</span>
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
